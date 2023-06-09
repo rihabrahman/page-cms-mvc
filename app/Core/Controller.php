@@ -4,10 +4,10 @@ class Controller
     {
         public function view($name, $data = [])
         {
-            if(!empty($data))
-            {
-                extract($data);
-            }
+            // if(!empty($data))
+            // {
+            //     extract($data);
+            // }
             $fileName = "../views/" . $name . ".view.php"; 
             if(file_exists($fileName))
             {

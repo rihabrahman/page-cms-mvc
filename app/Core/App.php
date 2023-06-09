@@ -3,6 +3,7 @@
     {
         private $controller = "Home";
         private $method = "index";
+        private $record = 1;
 
         private function split_url()
         {
@@ -41,7 +42,14 @@
                 }
             }   
 
-            call_user_func_array([$controller, $this->method], $url);
+            // select record
+            if(!empty($url[2]))
+            {
+                $this->record = $url[2];
+                unset($url[2]);
+            }   
+
+            call_user_func_array([$controller, $this->method], array($this->record));
         }
     }
 ?>

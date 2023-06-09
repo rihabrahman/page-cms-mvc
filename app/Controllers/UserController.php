@@ -23,6 +23,17 @@
             if($_SERVER['REQUEST_METHOD'] == "POST")
             {
                 $user = new User();
+                $arr['email'] = $_POST['email'];
+
+                // Duplicate email address check
+                $duplicateEmailCheckQuery = $user->where($arr);
+                if ($duplicateEmailCheckQuery > 0) {
+                    $_SESSION['failedMessage'] = 'The email has already been taken.';
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    die();
+                }
+
+                $user = new User();
                 $user->store($_POST);
                 redirect('user/index');
 
@@ -33,17 +44,37 @@
 
         public function edit($id)
         { 
-            $array['id'] = $id;
-		
+            $arr['id'] = $id;		
             $user = new User();
-            $data = $user->first($array);
+            $data = $user->first($arr);
 
-            redirect('user/edit', $data);
+            $this->view('user/edit', $data);
+        }
 
+        public function update($id)
+        { 
+            $data = [];
+            if($_SERVER['REQUEST_METHOD'] == "POST")
+            {
+                $user = new User();
+                $arr['email'] = $_POST['email'];
+                $notArr['id'] = $_POST['id'];
+                
+                // Duplicate email address check
+                $duplicateEmailCheckQuery = $user->where($arr, $notArr);
+                if ($duplicateEmailCheckQuery > 0) {
+                    $_SESSION['failedMessage'] = 'The email has already been taken.';
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    die();
+                }
 
-            $this->view('user/create');
+                $user->update($id, $_POST);
+                $_SESSION['successMessage'] = 'Editor information updated successfully.';
+                return redirect('user/index');
+                die();
 
-            dd($id); die();
+                $data['errors'] = $user->errors;			
+            }
         }
 
         public function destroy($id)
@@ -52,7 +83,9 @@
             $user = new User();
             $data = $user->destroy($array);
 
-            $this->index();
+            $_SESSION['successMessage'] = 'Editor deleted successfully.';
+            return redirect('user/index');
+            die();
         }
     }
 ?> 

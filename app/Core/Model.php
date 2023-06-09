@@ -106,7 +106,7 @@ Trait Model
         }
 
         $query = trim($query, ", " );
-
+        
         $query .= "  where $id_column = :$id_column ";
         
         $data[$id_column] = $id;
