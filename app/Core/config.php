@@ -9,7 +9,7 @@
         define('DBPASS', ''); 
         define('DBDRIVER', '');
 
-        define('ROOT', 'http://localhost/myc/public'); 
+        define('ROOT', 'http://localhost/page-cms-mvc/public'); 
     } else {
 
         /** production database config **/ 

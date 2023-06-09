@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,27 +19,13 @@
                 </div>                
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-3 text-right">
-                            <p class="h5 mt-1"> <?php echo $user['name']; ?></p>
-                        </div>
+                        
                         <div class="col-lg-1 text-right p-0">
                             <a href="../auth/home.php" class="btn btn-primary"><i class="fa fa-home" aria-hidden="true"></i></a>
                         </div>
-                        <?php 
-                            if($user['role'] == 'Admin'){
-                        ?>                
-                            <div class="col-lg-4 text-right">
-                                <a href="../user/index.php" class="btn btn-primary">View Editors</a>
-                            </div>
-                        <?php 
-                            }
-                        ?>               
                         <div class="col-lg-3 text-right">
                             <a href="../page/index.php" class="btn btn-primary">View Pages</a>
-                        </div>
-                        <div class="col-lg-1">
-                            <a href="../auth/logout.php" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>            

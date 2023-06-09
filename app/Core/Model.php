@@ -9,6 +9,7 @@ Trait Model
     
     protected $limit = 10;
     protected $offset = 0;
+    public $errors = [];
 
     public function where($data, $dataNot = [])
     {
@@ -35,29 +36,27 @@ Trait Model
     public function first($data, $dataNot = [])
     {        
         $keys = array_keys($data);
-        $keysNot = array_keys($dataNot);
-        $query = "select * from $this->table where ";
+		$keys_not = array_keys($dataNot);
+		$query = "select * from $this->table where ";
 
-        foreach ($keys as $key) {  
-            $query .= $key . " = :" . $key . " && ";
-        }
+		foreach ($keys as $key) {
+			$query .= $key . " = :". $key . " && ";
+		}
 
-        foreach ($keysNot as $key) {
-            $query .= $key . " != :" . $key . " && ";
-        }
+		foreach ($keys_not as $key) {
+			$query .= $key . " != :". $key . " && ";
+		}
+		
+		$query = trim($query," && ");
 
-        $query = trim($query, " && " );
+		$query .= " limit $this->limit offset $this->offset";
+		$data = array_merge($data, $dataNot);
+		
+		$result = $this->query($query, $data);
+		if($result)
+			return $result[0];
 
-        $query .= "  limit $this->limit offset $this->offset";
-        $data = array_merge($data, $dataNot);
-        
-        $result = $this->query($query, $data);
-        if($result)
-        {
-            return $result[0];
-        }
-
-        return false;
+		return false;
     }
 
     public function index()
@@ -79,7 +78,7 @@ Trait Model
                 }
             }
         }
-        
+
         $keys = array_keys($data);
         $query = "insert into $this->table (". implode(",", $keys).") values (:". implode(",:", $keys).")";
         $this->query($query, $data);

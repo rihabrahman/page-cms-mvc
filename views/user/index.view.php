@@ -1,9 +1,5 @@
-<?php   
-    session_start();
-?> 
-
 <?php 
-    include '../partials/header.php';                       
+    include 'header.view.php';                       
 ?>      
 
 <?php                
@@ -29,7 +25,7 @@
 <div class="container">
     <h3>
         All Editor Information
-        <a href="add.php" class="btn btn-primary" style="float:right;">Add New Editor</a>
+        <a href="<?php echo ROOT?>/user/create" class="btn btn-primary" style="float:right;">Add New Editor</a>
     </h3>
     <br>
     <table class="table table-hover table-bordered" id="data-table">
@@ -44,22 +40,21 @@
         </thead>
         <tbody>
             <?php 
-                $editors = $editorObj->index(); 
-                if($editors != null) {
-                    foreach ($editors as $key=>$editor) {
+                if($data != null) {
+                    foreach ($data as $key=>$editor) {
             ?>
             <tr>
                 <td><?php echo $key+1 ?></td>
-                <td><?php echo $editor['name'] ?></td>
-                <td><?php echo $editor['email'] ?></td>
-                <td><?php echo $editor['status'] ?></td>
+                <td><?php echo $editor->name ?></td>
+                <td><?php echo $editor->email ?></td>
+                <td><?php echo $editor->status ?></td>
                 <td>
-                    <a href="edit.php?id=<?php echo $editor['id'] ?>">
+                    <a href="<?php echo ROOT?>/user/edit/<?php echo $editor->id?>">
                         <button type="button" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Edit</button>
                     </a>
-                    <!-- <a href="index.php?id=<?php echo $editor['id'] ?>" onclick="confirm('Are you sure want to delete this editor?')">
+                    <a href="<?php echo ROOT?>/user/destroy/<?php echo $editor->id?>" onclick="confirm('Are you sure want to delete this editor?')">
                         <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp; Delete</button>
-                    </a> -->
+                    </a>
                 </td>
             </tr>
             <?php 
@@ -71,5 +66,5 @@
 </div>
 
 <?php 
-    require '../partials/footer.php'; 
+    require 'footer.view.php'; 
 ?>

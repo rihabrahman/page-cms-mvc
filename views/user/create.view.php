@@ -1,26 +1,7 @@
-<?php  
-    session_start();
-
-    //return to login if not logged in
-    if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
-        header('location:index.php');
-    }
-
-    // Initialization of class object
-    require 'User.php';  $editorObj = new User();  
-    
-    // Insert record in editor table
-    if(isset($_POST['submit'])) {
-        $editorObj->store($_POST);
-    }
-?>
-
 <?php 
-    require '../partials/header.php'; 
-    if($user['role'] != 'Admin'){
-        $editorObj->unauthorized_user();
-    }
-?>
+    include 'header.view.php';                       
+?>   
+
 
 <?php
     if(isset($_SESSION['failedMessage'])){
@@ -35,7 +16,7 @@
 
 <div class="container">  
     <h3>Add New Editor</h3>
-    <form action="add.php" method="POST">
+    <form method="POST" action="<?=ROOT?>/user/store">
         <div class="row">
             <div class="form-group col-lg-4">
                 <label for="name">Name</label>
@@ -72,5 +53,5 @@
         </div>               
     </form>
 <?php 
-    require '../partials/footer.php'; 
+    require 'footer.view.php'; 
 ?>

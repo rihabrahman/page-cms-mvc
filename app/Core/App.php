@@ -30,7 +30,7 @@
             }
 
             $controller = new $this->controller;
-
+            
             // select method
             if(!empty($url[1]))
             {
@@ -40,7 +40,7 @@
                     unset($url[1]);
                 }
             }   
-            
+
             call_user_func_array([$controller, $this->method], $url);
         }
     }
