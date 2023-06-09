@@ -17,7 +17,7 @@
                 <div class="col-lg-6">
                     <h4 class="text-left">Page CMS</h4>
                 </div>                
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                     <div class="row">
                         
                         <div class="col-lg-1 text-right p-0">
@@ -27,7 +27,7 @@
                             <a href="../page/index.php" class="btn btn-primary">View Pages</a>
                         </div>                        
                     </div>
-                </div>
+                </div> -->
             </div>            
         </div>
         <hr class="border border-dark">
